@@ -13,8 +13,8 @@ namespace DNSUpdaterService
     public partial class DNSUpdater : ServiceBase
     {
         private Timer timer;
-        private string apiKey = "9fe627aa-f1cd-5fc0-b071-5f25805dfc60";
-        private string domainId = "9bec86dc-b1ae-449d-9178-1690356246f5";
+        private string apiKey = "#YourArvanCloudAPiKey#";
+        private string domainId = "#YourDmoainID#";
         private string baseUrl = "https://napi.arvancloud.ir/cdn/4.0/domains/malijack.icu/dns-records/";
 
         public DNSUpdater()
@@ -57,7 +57,7 @@ namespace DNSUpdaterService
                 string jsonPayload = $@"
                 {{
                     ""type"": ""a"",
-                    ""name"": ""nima"",
+                    ""name"": ""#YourSubDomain#"",
                     ""value"": [
                         {{
                             ""ip"": ""{publicIp}"",
@@ -172,7 +172,7 @@ namespace DNSUpdaterService
                 // Resolve the DNS hostname to get its IP address
                 try
                 {
-                    var hostEntry = await Dns.GetHostEntryAsync("nima.malijack.icu");
+                    var hostEntry = await Dns.GetHostEntryAsync("#YourFullDomain#");
                     if (hostEntry.AddressList.Length > 0)
                     {
                         return hostEntry.AddressList[0].ToString();
@@ -194,7 +194,7 @@ namespace DNSUpdaterService
         private HttpClient CreateHttpClientWithLocalEndpoint()
         {
             // Specify the local endpoint (IP address and port) for the HttpClient
-            var localEndpoint = new IPEndPoint(IPAddress.Parse("192.168.0.147"), 0);
+            var localEndpoint = new IPEndPoint(IPAddress.Parse("#Your InterFace IP#"), 0);
 
             // Create a custom HttpClient with a specific local endpoint
             var httpClientHandler = new HttpClientHandler
